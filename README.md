@@ -35,6 +35,18 @@ Seat Finding Single Page Application
 ## Application Logic Used
 It is a Simple Material App with a Single Page. Multiple small widgets are used.
 
+# Seat Arrangement
+Total Seats is set to 60. Each row having 4 seats are arranged.
+Seatbuilder widget is a Row widget placing four seats at a row ( 3 Seats equidistant and the 4th seat pushed to the end).
+Seat Widget is a Dynamic Widget, changes its colour according to selection.
+
+# Logic
+We first check if the seat is within range or not (1-60). Then, we check if the Seat is already booked or not. We use a Linear Data Structure List for this.
+List<int> seatBooked=[]; --> This List keeps track of all the seats booked already. When a new seat is booked it is pushed into it.
+
+# Modal Bottom Sheets
+Modal Sheets are used as Confirmation or Error Dialogues
+
 
 
 
