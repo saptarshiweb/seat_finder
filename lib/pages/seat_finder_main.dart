@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:seat_finder/constants.dart';
 import 'package:seat_finder/widgets/modal_widgets.dart';
 import 'package:seat_finder/widgets/seatBuilder.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SeatFinderMain extends StatefulWidget {
   const SeatFinderMain({super.key});
@@ -17,6 +18,19 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
   int totalRows = 15;
 
   final TextEditingController _controller = TextEditingController();
+
+  List<int> seatBooked = [];
+  seatBookFunction(BuildContext context, int cur) {
+    if (seatBooked.contains(cur) == true) {
+      showBookingError(
+          context, "This Seat is Already Booked. Try Another One.");
+    } else {
+      setState(() {
+        seatBooked.add(cur);
+        showBookingDone(context, cur);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +67,7 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(top: 4, bottom: 4),
-                      child: seatBuilder(context, index),
+                      child: seatBuilder(context, index,seatBooked),
                     );
                   })
             ],
@@ -64,53 +78,49 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
   }
 
   Widget searchWidget(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        // final SharedPreferences prefs = await SharedPreferences.getInstance();
-        // final int? counter = prefs.getInt('counter');
-        // print(counter);
-        FocusManager.instance.primaryFocus?.unfocus();
-
-        //send controller text as int to showBookingDone
-        int val;
-        val = int.parse(_controller.text);
-        if (_controller.text == "") {
-          showBookingError(context, "Enter Seat Number First !\n Try Again.");
-        } else if (val == 0 || val > 60) {
-          showBookingError(context, "Seat Number Does not Exist.");
-        } else {
-          showBookingDone(context, int.parse(_controller.text));
-        }
-      },
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: secondaryColor, width: 2),
-            borderRadius: BorderRadius.circular(4)),
-        child: Row(
-          children: [
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.065,
-                width: MediaQuery.of(context).size.width * 0.6,
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Enter the Seat Number",
-                      hintStyle: TextStyle(
-                          color: secondaryColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    style: TextStyle(
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: secondaryColor, width: 2),
+          borderRadius: BorderRadius.circular(4)),
+      child: Row(
+        children: [
+          SizedBox(
+              height: MediaQuery.of(context).size.height * 0.065,
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Enter the Seat Number",
+                    hintStyle: TextStyle(
                         color: secondaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
-                    controller: _controller,
-                    keyboardType: TextInputType.number,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
                   ),
-                )),
-            const Spacer(),
-            Container(
+                  style: TextStyle(
+                      color: secondaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                  controller: _controller,
+                  keyboardType: TextInputType.number,
+                ),
+              )),
+          const Spacer(),
+          GestureDetector(
+            onTap: () async {
+              FocusManager.instance.primaryFocus?.unfocus();
+              int val;
+              val = int.parse(_controller.text);
+              if (_controller.text == "") {
+                showBookingError(
+                    context, "Enter Seat Number First !\n Try Again.");
+              } else if (val == 0 || val > 60) {
+                showBookingError(context, "Seat Number Does not Exist.");
+              } else {
+                seatBookFunction(context, val);
+              }
+            },
+            child: Container(
               height: MediaQuery.of(context).size.height * 0.065,
               width: MediaQuery.of(context).size.width * 0.2,
               decoration: BoxDecoration(color: secondaryColor),
@@ -127,8 +137,8 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

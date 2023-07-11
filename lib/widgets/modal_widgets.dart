@@ -92,7 +92,7 @@ showBookingError(BuildContext context, String error) {
                       error,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                          fontSize: 19, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
                     Row(

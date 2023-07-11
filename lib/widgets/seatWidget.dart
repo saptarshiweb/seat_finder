@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:seat_finder/constants.dart';
 
-Widget seatWidget(BuildContext context, int seatNum) {
+Widget seatWidget(BuildContext context, int seatNum, List<int> seatBooked) {
   String seatType = "";
   if (seatNum % 4 == 1) {
     seatType = "LOWER";
@@ -14,11 +14,14 @@ Widget seatWidget(BuildContext context, int seatNum) {
   } else {
     seatType = "SIDE";
   }
+  bool flag = false;
+  if (seatBooked.contains(seatNum)) flag = true;
   return Container(
     height: MediaQuery.of(context).size.height * 0.1,
     width: MediaQuery.of(context).size.width * 0.2,
-    decoration:
-        BoxDecoration(color: seatColor, borderRadius: BorderRadius.circular(5)),
+    decoration: BoxDecoration(
+        color: (flag == true) ? primaryColor : seatColor,
+        borderRadius: BorderRadius.circular(5)),
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -28,13 +31,13 @@ Widget seatWidget(BuildContext context, int seatNum) {
           Text(
             seatNum.toString(),
             style: TextStyle(
-                color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),
+                color: (flag==true)?Colors.white:primaryColor, fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
           Text(
             seatType,
             style: TextStyle(
-                color: secondaryColor,
+                color: (flag==true)?Colors.white:secondaryColor,
                 fontSize: 12,
                 fontWeight: FontWeight.bold),
           ),
