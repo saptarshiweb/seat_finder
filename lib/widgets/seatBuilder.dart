@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:seat_finder/widgets/seatWidget.dart';
 
 Row seatBuilder(BuildContext context, int index,List<int> seatBooked) {
-  index = index * 4;
+  index = index * 4;//seat Logic
   return Row(
     children: [
       seatWidget(context, index + 1,seatBooked),
