@@ -8,6 +8,10 @@ Seat Finding Single Page Application
 <img src="https://github.com/saptarshiweb/seat_finder/assets/79189686/478257be-89f9-4bae-9943-13756a9f7325" width="200" height="400">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="https://github.com/saptarshiweb/seat_finder/assets/79189686/2d90c3f5-d058-4789-843d-ef59872ce0bc" width="200" height="400">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+# Video
+
+https://github.com/saptarshiweb/seat_finder/assets/79189686/400007b9-191a-4ad1-9c42-4da2b6cd8388
+
 
 ## Project structure
 
