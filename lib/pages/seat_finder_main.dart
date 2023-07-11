@@ -17,9 +17,12 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
   int totalSeats = 60;
   int totalRows = 15;
 
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller =
+      TextEditingController(text: ""); //search bar
 
-  List<int> seatBooked = [];
+  List<int> seatBooked = []; //to keep the list of seats already booked
+
+  //Function to take care of seat booking
   seatBookFunction(BuildContext context, int cur) {
     if (seatBooked.contains(cur) == true) {
       showBookingError(
@@ -58,8 +61,10 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
                     fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              searchWidget(context),
+              searchWidget(context), //search bar with search button
               const SizedBox(height: 30),
+
+              //seat Builder, row wise
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: totalRows,
@@ -67,7 +72,7 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(top: 4, bottom: 4),
-                      child: seatBuilder(context, index,seatBooked),
+                      child: seatBuilder(context, index, seatBooked),
                     );
                   })
             ],
@@ -106,9 +111,11 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
                 ),
               )),
           const Spacer(),
+
+          //Find Button
           GestureDetector(
             onTap: () async {
-              FocusManager.instance.primaryFocus?.unfocus();
+              FocusManager.instance.primaryFocus?.unfocus();//for closing the keyboard
               int val;
               val = int.parse(_controller.text);
               if (_controller.text == "") {
@@ -137,7 +144,7 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
                 ),
               ),
             ),
-          ),
+          ), //Find Button Ends
         ],
       ),
     );
