@@ -114,10 +114,14 @@ class _SeatFinderMainState extends State<SeatFinderMain> {
 
           //Find Button
           GestureDetector(
-            onTap: () async {
-              FocusManager.instance.primaryFocus?.unfocus();//for closing the keyboard
-              int val;
-              val = int.parse(_controller.text);
+            onTap: () {
+              FocusManager.instance.primaryFocus
+                  ?.unfocus(); //for closing the keyboard
+              int val=0;
+
+              if (_controller.text != "") {
+                val = int.parse(_controller.text);
+              }
               if (_controller.text == "") {
                 showBookingError(
                     context, "Enter Seat Number First !\n Try Again.");

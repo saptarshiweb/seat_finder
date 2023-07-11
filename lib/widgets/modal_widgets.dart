@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:seat_finder/constants.dart';
 
+
+//Success Dialogue Function
 showBookingDone(BuildContext context, int ticketNumber) {
   showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -41,9 +43,11 @@ showBookingDone(BuildContext context, int ticketNumber) {
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: secondaryColor),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               child: const Padding(
-                                padding: EdgeInsets.all(4.0),
+                                padding: EdgeInsets.all(6.0),
                                 child: Text(
                                   'Go Back',
                                   style: TextStyle(
@@ -62,6 +66,7 @@ showBookingDone(BuildContext context, int ticketNumber) {
       });
 }
 
+//Error Dialogue Function
 showBookingError(BuildContext context, String error) {
   showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -101,10 +106,12 @@ showBookingError(BuildContext context, String error) {
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: secondaryColor),
-                              onPressed: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: const Text(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: Text(
                                   'Go Back',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 16),
